@@ -9,6 +9,7 @@ public interface IProductService {
     ProductResponse create(CreateProductRequest createProductRequest);
 
     ProductResponse find(Long id);
+    List<ProductResponse> findByName(String name);
 
     List<ProductResponse> findAll();
 }
