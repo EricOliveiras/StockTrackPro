@@ -2,6 +2,7 @@ package com.ericoliveiras.StockTrackPro.domain.product;
 
 import com.ericoliveiras.StockTrackPro.domain.product.payload.request.CreateProductRequest;
 import com.ericoliveiras.StockTrackPro.domain.product.payload.response.ProductResponse;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -25,12 +26,18 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public ProductResponse create(CreateProductRequest createProductRequest) {
         Product product = productMapper.toEntity(createProductRequest);
+        product.setName(product.getName().toLowerCase());
         return productMapper.toDto(productRepository.save(product));
     }
 
     @Override
     public ProductResponse find(Long id) {
         return productMapper.toDto(findProduct(id));
+    }
+
+    @Override
+    public List<ProductResponse> findByName(String name) {
+        return productMapper.toDto(findProductByName(name));
     }
 
     @Override
@@ -50,5 +57,14 @@ public class ProductServiceImpl implements IProductService {
                 orElseThrow(
                         () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "product not found.")
                 );
+    }
+
+
+    private @NotNull List<Product> findProductByName(@NotNull String name) {
+        List<Product> products = productRepository.findByName(name.toLowerCase());
+        if (products.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "products not found.");
+        }
+        return products;
     }
 }
