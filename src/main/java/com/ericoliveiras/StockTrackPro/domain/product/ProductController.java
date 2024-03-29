@@ -36,6 +36,12 @@ public class ProductController {
 
     @GetMapping("/find-by-name/{name}")
     public ResponseEntity<List<ProductResponse>> findByName(@PathVariable String name) {
-        return ResponseEntity.status(HttpStatus.OK).body(productService.findByName(name));
+        return ResponseEntity.status(HttpStatus.OK).body(productService.findAllByName(name));
     }
+
+    @PostMapping("/update/{id}")
+    public ResponseEntity<ProductResponse> update(Long id, CreateProductRequest createProductRequest) {
+        return ResponseEntity.status(HttpStatus.OK).body(productService.update(id, createProductRequest));
+    }
+
 }
