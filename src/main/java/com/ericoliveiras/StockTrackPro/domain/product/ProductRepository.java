@@ -7,5 +7,7 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("SELECT p FROM Product p WHERE p.name LIKE %?1%")
-    List<Product> findByName(String name);
+    List<Product> findAllByName(String name);
+
+    Product findByName(String name);
 }
