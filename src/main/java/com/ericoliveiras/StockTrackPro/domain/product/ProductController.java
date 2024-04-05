@@ -1,6 +1,5 @@
 package com.ericoliveiras.StockTrackPro.domain.product;
 
-import com.ericoliveiras.StockTrackPro.domain.product.IProductService;
 import com.ericoliveiras.StockTrackPro.domain.product.payload.request.CreateProductRequest;
 import com.ericoliveiras.StockTrackPro.domain.product.payload.response.ProductResponse;
 import org.springframework.http.HttpStatus;
